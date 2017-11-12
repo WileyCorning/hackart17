@@ -43,7 +43,7 @@ public class Stage {
 
 	IEnumerator DoIntroText(Action callback) {
 		LineShower.singleton.Prepare ();
-		SteamVR_Fade.Start(Color.clear, 0);
+		FadePanel.singleton.Fade (1,0,0);
 		foreach (var line in introTextLines) {
 			LineShower.singleton.SetLine (line);
 			yield return new WaitForSeconds (LineShower.singleton.lineDuration);
@@ -63,7 +63,7 @@ public class Stage {
 
 	}
 	IEnumerator DoConcludeActivity() {
-		SteamVR_Fade.Start (Color.black, FADE_DURATION);
+		FadePanel.singleton.Fade (0,1, FADE_DURATION);
 		yield return new WaitForSeconds (FADE_DURATION);
 		ControllerManager.singleton.SetControllersVisible (false);
 		if (narration != null) {
