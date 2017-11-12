@@ -4,17 +4,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class IdentityOffsetStrategy : IOffsetStrategy {
-	Transform pivot;
-	public IdentityOffsetStrategy(Transform pivot) {
-		this.pivot = pivot;
+	Transform visible;
+	Transform actual;
+	public IdentityOffsetStrategy(Transform visible, Transform actual) {
+		this.visible = visible;
+		this.actual = actual;
 	}
 
 	public void ApplyOffset() {
-		pivot.localPosition = Vector3.zero;
+		visible.SetPositionAndRotation (actual.position, actual.rotation);
 	}
 }
 public class IdentityOffsetStrategyFactory : IOffsetStrategyFactory {
 	public IOffsetStrategy Create(ControllerOffset controller) {
-		return new IdentityOffsetStrategy (controller.pivot);
+		return new IdentityOffsetStrategy (controller.transform, controller.actual);
 	}
 }

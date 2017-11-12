@@ -4,17 +4,37 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ControllerOffset : MonoBehaviour {
-	[SerializeField] Transform forkTip;
-	GameObject currentFood;
+	public enum Handedness { None, Left, Right }
+
+	[SerializeField] Handedness handednessIndicator;
+	public Handedness handedness { get { return handednessIndicator; } }
 
 	public Transform head { get { return CameraRigEye.singleton.transform; } }
-	public Transform pivot { get { return transform; } }
+
+	[SerializeField] Transform controllerActual;
+	public Transform actual { get { return controllerActual; } }
+
+	[SerializeField] SteamVR_RenderModel renderModel;
+	[SerializeField] Transform forkTip;
+
+	GameObject currentFood;
+
 
 	IOffsetStrategy strategy;
 
-	void Start() {
-		this.strategy = new IdentityOffsetStrategy (transform);
+	IEnumerator Start() {
+		this.strategy = new IdentityOffsetStrategy (transform,actual);
 		ControllerManager.singleton.Register (this);
+
+		// Wait for rendermodel to populate
+		while (renderModel.transform.Find ("body") == null) {
+			yield return new WaitForEndOfFrame ();
+		}
+
+		// Move rendermodel here
+		renderModel.transform.SetParent (transform);
+		renderModel.transform.localPosition = Vector3.zero;
+		renderModel.transform.localRotation = Quaternion.identity;
 	}
 
 	void FixedUpdate() {
