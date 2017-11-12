@@ -41,7 +41,11 @@ public class ControllerOffset : MonoBehaviour {
 	}
 
 	void FixedUpdate() {
-		strategy?.ApplyOffset ();
+		if (!actual.gameObject.activeSelf) {
+			transform.position = new Vector3 (0, -10, 0);
+		} else {
+			strategy?.ApplyOffset ();
+		}
 	}
 
 	public void SetStrategy(IOffsetStrategy strategy) {

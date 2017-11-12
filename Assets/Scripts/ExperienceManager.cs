@@ -10,7 +10,7 @@ public class ExperienceManager : MonoBehaviour {
 
 	[SerializeField] Vector3 gabe_translation;
 	[SerializeField] Vector3 forward_translation;
-	[SerializeField] float delay;
+	[SerializeField] float lagDelay;
 
 	[SerializeField] List<StageDescription> stages;
 
@@ -26,29 +26,18 @@ public class ExperienceManager : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Space)) {
 			Advance ();
 			return;
+		} else if (Input.GetKeyDown (KeyCode.Backspace)) {
+			SetStageIndex (0);
+			return;
 		}
+
 		var s = Input.inputString;
 
 		if (s.Length == 1) {
 			int index;
-			if (int.TryParse (s, out index) && index >= 0 && index < stages.Count) {
-				SetStageIndex (index);
+			if (int.TryParse (s, out index) && index >= 1 && index < stages.Count) {
+				SetStageIndex (index-1);
 			}
-		}
-
-			
-
-		if(Input.GetKeyDown(KeyCode.A)) {
-			controllerManager.SetStrategyFactory (new IdentityOffsetStrategyFactory ());
-		} 
-		if(Input.GetKeyDown(KeyCode.B)) {
-			controllerManager.SetStrategyFactory (new TranslationOffsetStrategyFactory (gabe_translation));
-		}
-		if(Input.GetKeyDown(KeyCode.C)) {
-			controllerManager.SetStrategyFactory (new LagOffsetStrategyFactory (delay));
-		}
-		if(Input.GetKeyDown(KeyCode.D)) {
-			controllerManager.SetStrategyFactory (new WobbleOffsetStrategyFactory ());
 		}
 	}
 
@@ -77,6 +66,29 @@ public class ExperienceManager : MonoBehaviour {
 	void SetStageIndex(int i) {
 		currentStageIndex = i;
 		currentStage = stages [i].Create ();
+
+		controllerManager.SetPrefab (stages [i].prefab);
+
+		IOffsetStrategyFactory factory;
+		switch (stages [i].strategy) {
+		case OffsetStrategy.Translation_Forward:
+			factory = new TranslationOffsetStrategyFactory (forward_translation);
+			break;
+		case OffsetStrategy.Translation_Gabe:
+			factory = new TranslationOffsetStrategyFactory (gabe_translation);
+			break;
+		case OffsetStrategy.Wobble:
+			factory = new WobbleOffsetStrategyFactory();
+			break;
+		case OffsetStrategy.Lag:
+			factory = new LagOffsetStrategyFactory (lagDelay);
+			break;
+		default:
+			factory = new IdentityOffsetStrategyFactory ();
+			break;
+		}
+		controllerManager.SetStrategyFactory (factory);
+
 		currentStage.Begin ();
 	}
 }

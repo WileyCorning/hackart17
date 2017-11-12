@@ -3,15 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "StageDescriptor")]
-public class StageDescription : ScriptableObject {
-	[SerializeField] List<string> introTextLines;
-	[SerializeField] AudioClip narration;
-
-	public Stage Create() {
-		return new Stage (introTextLines, narration);
-	}
-}
 
 
 public class Stage {
@@ -25,12 +16,12 @@ public class Stage {
 		Ended
 	}
 
-	List<string> introTextLines;
+	IList<string> introTextLines;
 	AudioClip narration;
 
 	public Phase phase { get; protected set; } = Phase.Initial;
 
-	public Stage(List<string> introTextLines, AudioClip narration) {
+	public Stage(IList<string> introTextLines, AudioClip narration) {
 		this.introTextLines = introTextLines;
 		this.narration = narration;
 	}
@@ -43,7 +34,7 @@ public class Stage {
 
 	IEnumerator DoIntroText(Action callback) {
 		LineShower.singleton.Prepare ();
-		FadePanel.singleton.Fade (1,0,0);
+//		FadePanel.singleton.Fade (1,0,0);
 		foreach (var line in introTextLines) {
 			LineShower.singleton.SetLine (line);
 			yield return new WaitForSeconds (LineShower.singleton.lineDuration);
@@ -63,7 +54,7 @@ public class Stage {
 
 	}
 	IEnumerator DoConcludeActivity() {
-		FadePanel.singleton.Fade (0,1, FADE_DURATION);
+//		FadePanel.singleton.Fade (0,1, FADE_DURATION);
 		yield return new WaitForSeconds (FADE_DURATION);
 		ControllerManager.singleton.SetControllersVisible (false);
 		if (narration != null) {

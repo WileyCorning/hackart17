@@ -9,7 +9,7 @@ public class WobbleOffsetStrategy : IOffsetStrategy {
 	Transform head;
 	Transform fork;
 
-	float rapidity = 2;
+	float rapidity = 5;
 	float range = 0.5f;
 	float maxAngle = 60;
 
