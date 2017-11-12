@@ -15,9 +15,7 @@ public class StageDescription : ScriptableObject {
 
 
 public class Stage {
-
-	const float LINE_DURATION = 0.2f;
-	const float FADE_DURATION = 0.1f;
+	const float FADE_DURATION = 0.5f;
 
 	public enum Phase {
 		Initial,
@@ -48,7 +46,7 @@ public class Stage {
 		SteamVR_Fade.Start(Color.clear, 0);
 		foreach (var line in introTextLines) {
 			LineShower.singleton.SetLine (line);
-			yield return new WaitForSeconds (LINE_DURATION);
+			yield return new WaitForSeconds (LineShower.singleton.lineDuration);
 		}
 		LineShower.singleton.Cleanup();
 		callback();
@@ -67,6 +65,7 @@ public class Stage {
 	IEnumerator DoConcludeActivity() {
 		SteamVR_Fade.Start (Color.black, FADE_DURATION);
 		yield return new WaitForSeconds (FADE_DURATION);
+		ControllerManager.singleton.SetControllersVisible (false);
 		if (narration != null) {
 			AudioPlayer.singleton.PlaySound (narration);
 			yield return new WaitForSeconds (narration.length);

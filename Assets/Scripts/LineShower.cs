@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class LineShower : MonoBehaviour {
 	[SerializeField] TextMesh text;
-	[SerializeField] Vector3 offset;
+	[SerializeField] float distance;
+	[SerializeField] AudioClip boom;
+	public float lineDuration = 0.5f;
 
 	public static LineShower singleton;
 
@@ -16,11 +18,15 @@ public class LineShower : MonoBehaviour {
 	public void Prepare() {
 		text.text = "";
 		var head = CameraRigEye.singleton.transform;
-		transform.SetPositionAndRotation (head.position + head.TransformVector (offset), Quaternion.LookRotation (Vector3.ProjectOnPlane(head.forward,Vector3.up)));
+		Vector3 forward = Vector3.ProjectOnPlane (head.forward, Vector3.up).normalized;
+
+
+		transform.SetPositionAndRotation (head.position + forward*distance, Quaternion.LookRotation (forward));
 	}
 
 	public void SetLine(string line) {
 		text.gameObject.SetActive (true);
+		AudioPlayer.singleton.PlaySound (boom);
 		text.text = line;
 	}
 
