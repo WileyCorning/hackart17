@@ -27,25 +27,9 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1206964429988352
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4874858266826968}
-  - component: {fileID: 114029163776411752}
-  m_Layer: 0
-  m_Name: Model
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1467779838181868
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -75,6 +59,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1934654661174146
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4591584277993498}
+  m_Layer: 0
+  m_Name: ModelAttach
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &4382505725180816
 Transform:
   m_ObjectHideFlags: 1
@@ -88,47 +87,47 @@ Transform:
   m_Father: {fileID: 4718903990578748}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
+--- !u!4 &4591584277993498
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1934654661174146}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4718903990578748}
+  m_Father: {fileID: 4859125963259190}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4718903990578748
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1467779838181868}
-  m_LocalRotation: {x: -0.7778704, y: -0, z: -0, w: 0.62842476}
-  m_LocalPosition: {x: 0, y: 0.0027048134, z: -0.09928677}
+  m_LocalRotation: {x: -0.77787036, y: 0, z: 0, w: 0.6284248}
+  m_LocalPosition: {x: 0, y: 0.002704813, z: -0.09928677}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4382505725180816}
-  m_Father: {fileID: 4859125963259190}
+  m_Father: {fileID: 4591584277993498}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -7, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -102.132, y: 0, z: 0}
 --- !u!4 &4859125963259190
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1111177807001260}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4718903990578748}
-  - {fileID: 4874858266826968}
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4874858266826968
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1206964429988352}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4859125963259190}
-  m_RootOrder: 1
+  m_Children:
+  - {fileID: 4591584277993498}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23415668095007568
 MeshRenderer:
@@ -171,23 +170,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1467779838181868}
   m_Mesh: {fileID: 4300000, guid: d8d989b1271a8be4a829f84996c45618, type: 3}
---- !u!114 &114029163776411752
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1206964429988352}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5890e3cad70bea64d91aef9145ba3454, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  index: -1
-  modelOverride: 
-  shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 3}
-  verbose: 0
-  createComponents: 1
-  updateDynamically: 1
 --- !u!114 &114064265176767804
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -199,4 +181,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc95faa016503ea46ae5905e423046c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  handednessIndicator: 2
+  controllerActual: {fileID: 0}
+  renderModel: {fileID: 0}
   forkTip: {fileID: 4382505725180816}
+  modelAttach: {fileID: 4591584277993498}

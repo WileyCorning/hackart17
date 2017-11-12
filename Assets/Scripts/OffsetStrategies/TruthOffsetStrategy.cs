@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IdentityOffsetStrategy : IOffsetStrategy {
+public class TruthOffsetStrategy : IOffsetStrategy {
 	Transform visible;
 	Transform actual;
-	public IdentityOffsetStrategy(Transform visible, Transform actual) {
+	public TruthOffsetStrategy(Transform visible, Transform actual) {
 		this.visible = visible;
 		this.actual = actual;
 	}
@@ -17,6 +17,6 @@ public class IdentityOffsetStrategy : IOffsetStrategy {
 }
 public class IdentityOffsetStrategyFactory : IOffsetStrategyFactory {
 	public IOffsetStrategy Create(ControllerOffset controller) {
-		return new IdentityOffsetStrategy (controller.transform, controller.actual);
+		return new TruthOffsetStrategy (controller.transform, controller.actual);
 	}
 }

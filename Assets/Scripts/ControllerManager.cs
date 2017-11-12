@@ -6,6 +6,8 @@ using UnityEngine;
 public class ControllerManager {
 	public static ControllerManager singleton;
 
+	bool controllersVisible = true;
+
 	List<ControllerOffset> controllers = new List<ControllerOffset>();
 
 
@@ -18,6 +20,7 @@ public class ControllerManager {
 	public void Register(ControllerOffset controller) {
 		this.controllers.Add (controller);
 		controller.SetStrategy (factory.Create (controller));
+		controller.SetVisible (controllersVisible);
 	}
 
 	public void SetStrategyFactory(IOffsetStrategyFactory factory) {
@@ -25,6 +28,13 @@ public class ControllerManager {
 
 		foreach (var controller in controllers) {
 			controller.SetStrategy (factory.Create (controller));
+		}
+	}
+
+	public void SetControllersVisible(bool value) {
+		controllersVisible = value;
+		foreach (var controller in controllers) {
+			controller.SetVisible (value);
 		}
 	}
 }

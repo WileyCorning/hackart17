@@ -16,6 +16,9 @@ public class ControllerOffset : MonoBehaviour {
 
 	[SerializeField] SteamVR_RenderModel renderModel;
 	[SerializeField] Transform forkTip;
+	public Transform fork { get { return forkTip; } }
+
+	[SerializeField] Transform modelAttach;
 
 	GameObject currentFood;
 
@@ -23,7 +26,7 @@ public class ControllerOffset : MonoBehaviour {
 	IOffsetStrategy strategy;
 
 	IEnumerator Start() {
-		this.strategy = new IdentityOffsetStrategy (transform,actual);
+		this.strategy = new TruthOffsetStrategy (transform,actual);
 		ControllerManager.singleton.Register (this);
 
 		// Wait for rendermodel to populate
@@ -32,7 +35,7 @@ public class ControllerOffset : MonoBehaviour {
 		}
 
 		// Move rendermodel here
-		renderModel.transform.SetParent (transform);
+		renderModel.transform.SetParent (modelAttach);
 		renderModel.transform.localPosition = Vector3.zero;
 		renderModel.transform.localRotation = Quaternion.identity;
 	}
@@ -57,5 +60,9 @@ public class ControllerOffset : MonoBehaviour {
 			Destroy (currentFood);
 			currentFood = null;
 		}
+	}
+
+	public void SetVisible(bool value) {
+		modelAttach.gameObject.SetActive (value);
 	}
 }
